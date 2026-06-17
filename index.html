@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Danillo Celino — AI Engineer & PhD Candidate in Artificial Intelligence">
+  <title>Danillo Celino — AI Engineer & PhD in AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-deep:    #070c1a; --bg-surface: #0d1327; --bg-card: #121b34;
+      --text: #e2dbd1; --muted: #6e7a96; --dim: #3a4260;
+      --gold: #c9a84c; --blue: #4a8fdf; --border: rgba(255,255,255,0.07);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg-deep); color: var(--text); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.15rem 3rem; background: rgba(7,12,26,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); transition: border-color 0.3s; }
+    .nav-name { font-family: var(--serif); font-size: 1.05rem; font-weight: 500; color: var(--text); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+    .lang-toggle { display: flex; align-items: center; border: 1px solid var(--border); overflow: hidden; }
+    .lang-btn { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; padding: 0.35rem 0.7rem; border: none; background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; }
+    .lang-btn.active { background: var(--gold); color: var(--bg-deep); }
+    .lang-sep { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; }
+    .nav-cv { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; padding: 0.4rem 1rem; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; transition: all 0.2s; }
+    .nav-cv:hover { background: var(--gold); color: var(--bg-deep); }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: flex; align-items: center; padding: 9rem 3rem 6rem; position: relative; overflow: hidden; }
+    .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(74,143,223,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(74,143,223,0.035) 1px, transparent 1px); background-size: 64px 64px; }
+    .hero-glow { position: absolute; top: 15%; left: 25%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(74,143,223,0.05) 0%, transparent 65%); pointer-events: none; }
+    .hero-content { position: relative; max-width: 880px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em; color: var(--blue); margin-bottom: 1.5rem; }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--blue); border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    .hero-name { font-family: var(--serif); font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 300; line-height: 1.04; letter-spacing: -0.01em; margin-bottom: 1rem; }
+    .hero-name em { color: var(--gold); font-style: italic; }
+    .hero-sub { font-size: 1rem; font-weight: 300; color: var(--muted); max-width: 560px; margin-bottom: 2.5rem; line-height: 1.85; }
+    .hero-meta { display: flex; align-items: center; gap: 2rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+    .hero-meta-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--muted); }
+    .hero-meta-item .icon { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; flex-shrink: 0; }
+    .hero-socials { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .hero-socials a { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0.45rem 0.85rem; border: 1px solid var(--border); transition: all 0.2s; }
+    .hero-socials a:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+    /* SECTIONS */
+    .section-inner { max-width: 960px; margin: 0 auto; padding: 6rem 3rem; }
+    .section-wide { padding: 6rem 0; }
+    .section-wide .section-inner { padding: 0 3rem; }
+    .s-label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.65rem; }
+    .s-title { font-family: var(--serif); font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 300; line-height: 1.1; }
+    .s-rule { width: 36px; height: 1px; background: var(--gold); margin: 1.2rem 0 3rem; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 210px 1fr; gap: 4rem; align-items: start; }
+    .about-photo { aspect-ratio: 3/4; background: var(--bg-card); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+    .about-photo-ph { font-family: var(--serif); font-size: 2.8rem; color: var(--gold); font-weight: 300; opacity: 0.6; }
+    .about-photo-note { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; color: var(--dim); }
+    .about-text p { font-size: 0.95rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.2rem; }
+    .about-text p strong { color: var(--text); font-weight: 400; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.75rem; }
+    .tag { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; padding: 0.28rem 0.65rem; border: 1px solid var(--border); color: var(--muted); }
+
+    /* RESEARCH */
+    #research { background: var(--bg-surface); }
+    .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1.5rem; }
+    .r-card { padding: 1.75rem; background: var(--bg-card); border: 1px solid var(--border); transition: border-color 0.25s; }
+    .r-card:hover { border-color: rgba(201,168,76,0.3); }
+    .r-num { font-family: var(--mono); font-size: 0.62rem; color: var(--gold); letter-spacing: 0.12em; margin-bottom: 0.75rem; }
+    .r-card h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; margin-bottom: 0.65rem; line-height: 1.3; }
+    .r-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.75; }
+
+    /* PUBLICATIONS */
+    .pub-list { list-style: none; }
+    .pub-item { display: grid; grid-template-columns: 70px 1fr; gap: 1.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--border); }
+    .pub-year { font-family: var(--mono); font-size: 0.72rem; color: var(--gold); padding-top: 0.15rem; }
+    .pub-venue { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.05em; color: var(--blue); margin-bottom: 0.4rem; }
+    .pub-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 0.35rem; line-height: 1.4; }
+    .pub-authors { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .pub-authors strong { color: var(--text); font-weight: 400; }
+    .pub-links { display: flex; gap: 0.65rem; }
+    .pub-links a { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0.22rem 0.55rem; border: 1px solid var(--border); transition: all 0.15s; }
+    .pub-links a:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* EXPERIENCE */
+    #experience { background: var(--bg-surface); }
+    .exp-list { list-style: none; }
+    .exp-item { display: grid; grid-template-columns: 150px 1fr; gap: 1.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--border); }
+    .exp-period { font-family: var(--mono); font-size: 0.67rem; color: var(--gold); letter-spacing: 0.06em; line-height: 1.65; }
+    .exp-role { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 0.2rem; }
+    .exp-company { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.07em; color: var(--blue); margin-bottom: 0.6rem; }
+    .exp-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.75; }
+    .exp-badge { display: inline-block; font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; padding: 0.18rem 0.5rem; border: 1px solid rgba(201,168,76,0.4); color: var(--gold); margin-bottom: 0.6rem; }
+
+    /* EDUCATION */
+    .edu-timeline { list-style: none; position: relative; padding-left: 2rem; }
+    .edu-timeline::before { content: ''; position: absolute; left: 0; top: 0.4rem; bottom: 0; width: 1px; background: var(--border); }
+    .edu-item { position: relative; padding-bottom: 2.5rem; }
+    .edu-item::before { content: ''; position: absolute; left: -2.3rem; top: 0.4rem; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; }
+    .edu-period { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 0.35rem; }
+    .edu-degree { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 0.2rem; }
+    .edu-inst { font-size: 0.82rem; color: var(--muted); }
+
+    /* CONTACT */
+    #contact { background: var(--bg-surface); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-intro p { font-size: 0.95rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.5rem; }
+    .c-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--muted); font-size: 0.88rem; transition: color 0.2s; }
+    .c-link:hover { color: var(--text); }
+    .c-link-label { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); min-width: 78px; }
+    .c-link-sub { font-size: 0.72rem; color: var(--dim); margin-left: 0.25rem; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--dim); border-top: 1px solid var(--border); }
+
+    /* ANIMATIONS */
+    .fade { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade.in { opacity: 1; transform: none; }
+    .lang-fade { transition: opacity 0.18s ease; }
+    .lang-fade.switching { opacity: 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 780px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { padding: 7.5rem 1.5rem 4rem; }
+      .section-inner { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-photo { max-width: 180px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .pub-item, .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-name">Danillo Ricardo Celino</a>
+  <ul class="nav-links">
+    <li><a href="#about"        data-i18n="nav_about"></a></li>
+    <li><a href="#research"     data-i18n="nav_research"></a></li>
+    <li><a href="#publications" data-i18n="nav_pub"></a></li>
+    <li><a href="#experience"   data-i18n="nav_exp"></a></li>
+    <li><a href="#education"    data-i18n="nav_edu"></a></li>
+    <li><a href="#contact"      data-i18n="nav_contact"></a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="lang-toggle">
+      <button class="lang-btn" id="btn-pt" onclick="setLang('pt')">PT</button>
+      <div class="lang-sep"></div>
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="cv.pdf" class="nav-cv" target="_blank" data-i18n="nav_cv"></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge" data-i18n="hero_badge"></div>
+    <h1 class="hero-name">Danillo Ricardo <em>Celino</em></h1>
+    <p class="hero-sub" data-i18n="hero_sub"></p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg class="icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+        ISEP — Porto &amp; RafTech
+      </div>
+      <div class="hero-meta-item">
+        <svg class="icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Lisboa, Portugal
+      </div>
+    </div>
+    <div class="hero-socials">
+      <a href="mailto:danillo.celino@gmail.com">✉ Email</a>
+      <a href="https://www.linkedin.com/in/danillo-celino" target="_blank">LinkedIn</a>
+      <a href="#" target="_blank">Scholar</a>
+      <a href="#" target="_blank">GitHub</a>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about">
+  <div class="section-inner fade">
+    <div class="s-label">// 01</div>
+    <h2 class="s-title" data-i18n="about_title"></h2>
+    <div class="s-rule"></div>
+    <div class="about-grid">
+      <div class="about-photo">
+        <span class="about-photo-ph">DC</span>
+        <span class="about-photo-note" data-i18n="about_photo"></span>
+      </div>
+      <div class="about-text lang-fade">
+        <p data-i18n="about_p1"></p>
+        <p data-i18n="about_p2"></p>
+        <p data-i18n="about_p3"></p>
+        <div class="about-tags">
+          <span class="tag">LLMs &amp; AI Agents</span>
+          <span class="tag">Ontology Engineering</span>
+          <span class="tag">Knowledge Graphs</span>
+          <span class="tag">RAG</span>
+          <span class="tag">DevOps AI</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Semantic Web</span>
+          <span class="tag">MLOps</span>
+          <span class="tag">AWS · Cloud-Native</span>
+          <span class="tag">Human-AI Collaboration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESEARCH -->
+<div id="research" class="section-wide">
+  <div class="section-inner fade">
+    <div class="s-label">// 02</div>
+    <h2 class="s-title" data-i18n="research_title"></h2>
+    <div class="s-rule"></div>
+    <div class="research-grid lang-fade">
+      <div class="r-card">
+        <div class="r-num">01</div>
+        <h3 data-i18n="r1_title"></h3>
+        <p  data-i18n="r1_desc"></p>
+      </div>
+      <div class="r-card">
+        <div class="r-num">02</div>
+        <h3 data-i18n="r2_title"></h3>
+        <p  data-i18n="r2_desc"></p>
+      </div>
+      <div class="r-card">
+        <div class="r-num">03</div>
+        <h3 data-i18n="r3_title"></h3>
+        <p  data-i18n="r3_desc"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PUBLICATIONS -->
+<div id="publications">
+  <div class="section-inner fade">
+    <div class="s-label">// 03</div>
+    <h2 class="s-title" data-i18n="pub_title"></h2>
+    <div class="s-rule"></div>
+    <ul class="pub-list">
+      <li class="pub-item">
+        <div class="pub-year">2016</div>
+        <div>
+          <div class="pub-venue">ACM WebMedia '16 — 22nd Brazilian Symposium on Multimedia and the Web</div>
+          <div class="pub-title">A Framework-based Approach for the Integration of Web-based Information Systems on the Semantic Web</div>
+          <div class="pub-authors"><strong>Danillo R. Celino</strong>, Luana Vetter Reis, Beatriz Franco Martins, Vítor E. Silva Souza</div>
+          <div class="pub-links">
+            <a href="https://dl.acm.org/doi/abs/10.1145/2976796.2976847" target="_blank">ACM</a>
+            <a href="https://dl.acm.org/doi/abs/10.1145/2976796.2976847" target="_blank">DOI</a>
+          </div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-year">2016</div>
+        <div>
+          <div class="pub-venue" data-i18n="pub2_venue"></div>
+          <div class="pub-title">A função das ontologias na interoperabilidade semântica no Levantamento de Requisitos de Software</div>
+          <div class="pub-authors"><strong>Danillo Ricardo Celino</strong></div>
+          <div class="pub-links">
+            <a href="https://scholar.google.com/citations?view_op=view_citation&hl=pt-PT&user=_rAlryMAAAAJ&citation_for_view=_rAlryMAAAAJ:9yKSN-GCB0IC" target="_blank">Scholar</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div id="experience">
+  <div class="section-inner fade">
+    <div class="s-label">// 04</div>
+    <h2 class="s-title" data-i18n="exp_title"></h2>
+    <div class="s-rule"></div>
+    <ul class="exp-list lang-fade">
+
+      <li class="exp-item">
+        <div class="exp-period">Nov 2025 — <span data-i18n="edu_present"></span><br>Remote</div>
+        <div>
+          <div class="exp-badge" data-i18n="exp_current"></div>
+          <div class="exp-role" data-i18n="exp1_role"></div>
+          <div class="exp-company">RAFTECH</div>
+          <div class="exp-desc" data-i18n="exp1_desc"></div>
+        </div>
+      </li>
+
+      <li class="exp-item">
+        <div class="exp-period">Apr 2020 — Nov 2025<br>Lisboa, PT</div>
+        <div>
+          <div class="exp-role" data-i18n="exp2_role"></div>
+          <div class="exp-company">EXPRESSO</div>
+          <div class="exp-desc" data-i18n="exp2_desc"></div>
+        </div>
+      </li>
+
+      <li class="exp-item">
+        <div class="exp-period">Sep 2019 — Mar 2020<br>Lisboa, PT</div>
+        <div>
+          <div class="exp-role" data-i18n="exp3_role"></div>
+          <div class="exp-company">KCS IT</div>
+          <div class="exp-desc" data-i18n="exp3_desc"></div>
+        </div>
+      </li>
+
+      <li class="exp-item">
+        <div class="exp-period">Jan 2018 — Mar 2019<br>Vitória, BR</div>
+        <div>
+          <div class="exp-role" data-i18n="exp4_role"></div>
+          <div class="exp-company">PAG!</div>
+          <div class="exp-desc" data-i18n="exp4_desc"></div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div id="education" style="background: var(--bg-surface);">
+  <div class="section-inner fade">
+    <div class="s-label">// 05</div>
+    <h2 class="s-title" data-i18n="edu_title"></h2>
+    <div class="s-rule"></div>
+    <ul class="edu-timeline">
+      <li class="edu-item">
+        <div class="edu-period">2024 — 2026</div>
+        <div class="edu-degree" data-i18n="edu_phd"></div>
+        <div class="edu-inst" data-i18n="edu_phd_inst"></div>
+      </li>
+      <li class="edu-item">
+        <div class="edu-period">2015 — 2017</div>
+        <div class="edu-degree" data-i18n="edu_msc"></div>
+        <div class="edu-inst">UFES — Universidade Federal do Espírito Santo</div>
+      </li>
+      <li class="edu-item">
+        <div class="edu-period">2019 — 2020</div>
+        <div class="edu-degree" data-i18n="edu_mba"></div>
+        <div class="edu-inst">Universidade Cruzeiro do Sul</div>
+      </li>
+      <li class="edu-item">
+        <div class="edu-period">2014 — 2016</div>
+        <div class="edu-degree" data-i18n="edu_spec"></div>
+        <div class="edu-inst">Pontifícia Universidade Católica de Minas Gerais</div>
+      </li>
+            <li class="edu-item">
+        <div class="edu-period">2014 — 2014</div>
+        <div class="edu-degree" data-i18n="edu_aper"></div>
+        <div class="edu-inst">Universidade Candido Mendes — Rio de Janeiro</div>
+      </li>
+      <li class="edu-item">
+        <div class="edu-period">2010 — 2014</div>
+        <div class="edu-degree" data-i18n="edu_bsc"></div>
+        <div class="edu-inst">UFES — Universidade Federal do Espírito Santo</div>
+      </li>
+      <li class="edu-item">
+        <div class="edu-period">2009 — 2009</div>
+        <div class="edu-degree" data-i18n="edu_tec"></div>
+        <div class="edu-inst" data-i18n="edu_tec_inst"> SEDU - ES</div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="section-wide">
+  <div class="section-inner fade">
+    <div class="s-label">// 06</div>
+    <h2 class="s-title" data-i18n="contact_title"></h2>
+    <div class="s-rule"></div>
+    <div class="contact-grid">
+      <div class="contact-intro lang-fade">
+        <p data-i18n="contact_p1"></p>
+        <p data-i18n="contact_p2"></p>
+      </div>
+      <div>
+        <a href="mailto:danillo.celino@gmail.com" class="c-link">
+          <span class="c-link-label">Email</span>danillo.celino@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/danillo-celino" class="c-link" target="_blank">
+          <span class="c-link-label">LinkedIn</span>linkedin.com/in/danillo-celino
+        </a>
+        <a href="#" class="c-link" target="_blank">
+          <span class="c-link-label">Scholar</span>Google Scholar
+        </a>
+        <a href="#" class="c-link" target="_blank">
+          <span class="c-link-label">GitHub</span>github.com/danillocelino
+        </a>
+        <a href="tel:+351967969284" class="c-link">
+          <span class="c-link-label">Phone PT</span>+351 967 969 284
+        </a>
+        <a href="tel:+5527997010736" class="c-link">
+          <span class="c-link-label">Phone BR</span>+55 27 99701 0736
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Danillo Ricardo Celino &nbsp;·&nbsp; <span data-i18n="footer_role"></span> &nbsp;·&nbsp; ISEP Porto &nbsp;·&nbsp; GitHub Pages</p>
+</footer>
+
+<script>
+const T = {
+  en: {
+    nav_about: "About", nav_research: "Research", nav_pub: "Publications",
+    nav_exp: "Experience", nav_edu: "Education", nav_contact: "Contact", nav_cv: "↓ CV",
+
+    hero_badge: "AI Engineer · PhD Candidate · Data Scientist",
+    hero_sub: "Designing enterprise-grade AI solutions powered by LLMs, AI Agents and Knowledge Graphs at RafTech. PhD Candidate in AI at ISEP Porto. 10+ years spanning AI engineering, data science and ontology research.",
+
+    about_title: "About Me",
+    about_photo: "add your photo",
+    about_p1: 'I am an <strong>AI Engineer, Data Scientist, Ontology Engineer and PhD Candidate in Artificial Intelligence</strong> at ISEP – Porto, specialising in Large Language Models, AI Agents, Knowledge Graphs, Retrieval-Augmented Generation (RAG), and intelligent automation. My work sits at the frontier of enterprise-grade AI — designing autonomous agents, cloud-native architectures, and software solutions grounded in formal knowledge representations.',
+    about_p2: 'At <strong>RafTech</strong> I build AI-driven platforms for DevOps automation, self-healing operations, incident management, UML generation, software architecture modelling, and automated technical documentation. This follows six years as Data Scientist at <strong>Expresso</strong> (Lisbon), where I designed end-to-end ML pipelines, data warehouses on AWS Redshift, and predictive analytics platforms.',
+    about_p3: 'My PhD research at ISEP explores <strong>Human–AI Collaboration</strong>, investigating how formal ontological representations can enhance the interpretability and robustness of modern AI systems. I hold an MSc in Semantic Web & Ontology and a BSc in Computer Science, both from UFES (Brazil), and bring a strong foundation in Python, Java, cloud technologies, MLOps and semantic technologies.',
+
+    research_title: "Research Interests",
+    r1_title: "LLMs, AI Agents & Knowledge Graphs",
+    r1_desc: "Designing agentic AI systems that combine the generative power of Large Language Models with structured Knowledge Graphs and ontological reasoning — enabling more interpretable, reliable enterprise AI.",
+    r2_title: "Ontology Engineering & Semantic Web",
+    r2_desc: "Designing formal ontologies using OntoUML and Semantic Web technologies (RDF, OWL, SPARQL) for knowledge-grounded AI. Applied to software architecture modelling, automated documentation and DevOps intelligence.",
+    r3_title: "Human–AI Collaboration",
+    r3_desc: "Investigating frameworks for effective cooperation between humans and intelligent systems, with a focus on explainability, trust calibration, agentic workflows and AI-augmented decision-making.",
+
+    pub_title: "Publications",
+    pub1_venue: "MSc Dissertation · UFES",
+
+    exp_title: "Experience",
+    exp_current: "● CURRENT",
+    exp1_role: "AI Engineer",
+    exp1_desc: "Design and develop intelligent software engineering solutions powered by LLMs and AI agents. Build AI-driven platforms for DevOps automation, self-healing operations, incident management, UML generation, software architecture modelling, and automated technical documentation. Develop agentic workflows, cloud-native services, and enterprise AI solutions that accelerate software delivery and improve operational efficiency.",
+    exp2_role: "Data Scientist",
+    exp2_desc: "Developed machine learning solutions, analytics platforms, predictive models, and cloud-based data products. Designed ETL pipelines, built data warehouses using AWS Redshift, deployed models with SageMaker and Lambda, and delivered data-driven insights through dashboards and advanced analytics.",
+    exp3_role: "Junior Data Scientist",
+    exp3_desc: "Predictive modelling projects from data collection and transformation through to model evaluation and results presentation. Analytical models for branch performance segmentation.",
+    exp4_role: "Back-End Developer",
+    exp4_desc: "Backend systems development for financial data pipelines. Java, Spring Boot and Python. SOA architecture (jDeveloper), test documentation and functional specification compliance.",
+
+    edu_title: "Education",
+    edu_present: "Present",
+    edu_phd: "PhD — Artificial Intelligence",
+    edu_phd_inst: "ISEP – Instituto Superior de Engenharia do Porto",
+    edu_mba: "MBA — Data Analysis",
+    edu_msc: "MSc — Informatics",
+    edu_spec: "Specialization — Software Engineering",
+    edu_bsc: "BSc — Computer Science",
+    edu_aper: "Postgraduate Certificate — Project Management",
+    edu_tec: "Technician — Informatics",
+
+    contact_title: "Get in Touch",
+    contact_p1: "I am always happy to discuss research ideas, potential collaborations, or opportunities in AI engineering, ontologies and data science. Feel free to reach out — I typically respond within a couple of days.",
+    contact_p2: "Open to reviewing papers, speaking at events, and exploring partnerships in enterprise AI, LLMs and Knowledge Engineering.",
+
+    footer_role: "AI Engineer · PhD Candidate in Artificial Intelligence"
+  },
+
+  pt: {
+    nav_about: "Sobre", nav_research: "Pesquisa", nav_pub: "Publicações",
+    nav_exp: "Experiência", nav_edu: "Formação", nav_contact: "Contato", nav_cv: "↓ CV",
+
+    hero_badge: "Engenheiro de IA · Candidato ao Doutorado · Cientista de Dados",
+    hero_sub: "Desenvolvendo soluções de IA empresarial com LLMs, Agentes de IA e Grafos de Conhecimento na RafTech. Candidato ao Doutorado em IA no ISEP Porto. Mais de 10 anos em engenharia de IA, ciência de dados e pesquisa em ontologias.",
+
+    about_title: "Sobre Mim",
+    about_photo: "adicione sua foto",
+    about_p1: 'Sou <strong>Engenheiro de IA, Cientista de Dados, Engenheiro de Ontologias e candidato ao Doutorado em Inteligência Artificial</strong> no ISEP – Porto, especializado em Grandes Modelos de Linguagem, Agentes de IA, Grafos de Conhecimento, Geração Aumentada por Recuperação (RAG) e automação inteligente. Meu trabalho está na vanguarda da IA empresarial — projetando agentes autônomos, arquiteturas cloud-native e soluções de software fundamentadas em representações formais do conhecimento.',
+    about_p2: 'Na <strong>RafTech</strong>, desenvolvo plataformas de IA para automação de DevOps, operações auto-reparáveis, gestão de incidentes, geração de UML, modelagem de arquitetura de software e documentação técnica automatizada. Isso se segue a seis anos como Cientista de Dados na <strong>Expresso</strong> (Lisboa), onde projetei pipelines de ML ponta a ponta, data warehouses no AWS Redshift e plataformas de analytics preditivas.',
+    about_p3: 'Minha pesquisa de doutorado no ISEP explora a <strong>Colaboração Humano–IA</strong>, investigando como representações ontológicas formais podem aumentar a interpretabilidade e robustez dos sistemas de IA modernos. Tenho Mestrado em Web Semântica & Ontologia e Bacharelado em Ciência da Computação, ambos pela UFES (Brasil).',
+
+    research_title: "Linhas de Pesquisa",
+    r1_title: "LLMs, Agentes de IA e Grafos de Conhecimento",
+    r1_desc: "Projeto de sistemas de IA agênticos que combinam o poder generativo dos Grandes Modelos de Linguagem com Grafos de Conhecimento e raciocínio ontológico — para uma IA empresarial mais interpretável e confiável.",
+    r2_title: "Engenharia de Ontologias e Web Semântica",
+    r2_desc: "Projeto de ontologias formais com OntoUML e tecnologias da Web Semântica (RDF, OWL, SPARQL). Aplicado a modelagem de arquitetura de software, documentação automatizada e inteligência DevOps.",
+    r3_title: "Colaboração Humano–IA",
+    r3_desc: "Investigação de frameworks para cooperação eficaz entre humanos e sistemas inteligentes, com foco em explicabilidade, calibração de confiança, fluxos agênticos e tomada de decisão aumentada por IA.",
+
+    pub_title: "Publicações",
+    pub1_venue: "Dissertação de Mestrado · UFES",
+
+    exp_title: "Experiência",
+    exp_current: "● ATUAL",
+    exp1_role: "Engenheiro de IA",
+    exp1_desc: "Projeto e desenvolvimento de soluções inteligentes de engenharia de software com LLMs e agentes de IA. Plataformas de IA para automação de DevOps, operações auto-reparáveis, gestão de incidentes, geração de UML, modelagem de arquitetura de software e documentação técnica automatizada. Desenvolvimento de fluxos agênticos, serviços cloud-native e soluções de IA empresariais.",
+    exp2_role: "Cientista de Dados",
+    exp2_desc: "Desenvolvimento de soluções de machine learning, plataformas de analytics, modelos preditivos e produtos de dados baseados em cloud. Pipelines ETL, data warehouses com AWS Redshift, modelos implantados com SageMaker e Lambda, e insights através de dashboards e analytics avançadas.",
+    exp3_role: "Cientista de Dados Júnior",
+    exp3_desc: "Projetos de modelagem preditiva da coleta e transformação de dados até a avaliação do modelo. Modelos analíticos para segmentação de desempenho de filiais.",
+    exp4_role: "Desenvolvedor Back-End",
+    exp4_desc: "Desenvolvimento de sistemas backend para pipelines de dados financeiros. Java, Spring Boot e Python. Arquitetura SOA (jDeveloper), documentação de testes e conformidade com especificações funcionais.",
+
+    edu_title: "Formação Acadêmica",
+    edu_present: "Presente",
+    edu_phd: "Doutorado — Inteligência Artificial",
+    edu_phd_inst: "ISEP – Instituto Superior de Engenharia do Porto",
+    edu_mba: "MBA — Análise de Dados",
+    edu_msc: "Mestrado — Informática",
+    edu_spec: "Especialização — Engenharia de Software",
+    edu_bsc: "Bacharelado — Ciência da Computação",
+    edu_aper: "Aperfeiçoamento — Gestão de Projetos",
+    edu_tec: "Tecnico — Informática",
+
+    contact_title: "Entre em Contato",
+    contact_p1: "Fico feliz em conversar sobre pesquisa, colaborações ou oportunidades em engenharia de IA, ontologias e ciência de dados. Sinta-se à vontade — costumo responder em poucos dias.",
+    contact_p2: "Aberto a revisar artigos, palestrar em eventos e explorar parcerias em IA empresarial, LLMs e Engenharia do Conhecimento.",
+
+    footer_role: "Engenheiro de IA · Candidato ao Doutorado em Inteligência Artificial"
+  }
+};
+
+let currentLang = localStorage.getItem('lang') || 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.querySelectorAll('.lang-fade').forEach(el => el.classList.add('switching'));
+  setTimeout(() => {
+    applyTranslations();
+    document.querySelectorAll('.lang-fade').forEach(el => el.classList.remove('switching'));
+  }, 180);
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+}
+
+function applyTranslations() {
+  const dict = T[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+}
+
+applyTranslations();
+if (currentLang === 'pt') {
+  document.getElementById('btn-pt').classList.add('active');
+  document.getElementById('btn-en').classList.remove('active');
+}
+
+const obs = new IntersectionObserver(
+  entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+  { threshold: 0.08 }
+);
+document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.style.borderBottomColor = window.scrollY > 40
+    ? 'rgba(255,255,255,0.12)'
+    : 'rgba(255,255,255,0.07)';
+});
+</script>
+</body>
+</html>
